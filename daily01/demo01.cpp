@@ -62,32 +62,37 @@ void test(){
     }
 }
 
+vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+    vector<int> ans;
+
+    for(int i = 0; i < nums1.size(); i++){
+        bool flag = false;
+        for(int j = 0; j < nums2.size(); j++){
+            if(nums1[i] == nums2[j]){
+                for(int k = j + 1; k < nums2.size(); k++){
+                    if(nums2[k] > nums1[i]){
+                        ans.push_back(nums2[k]);
+                        flag = true;
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+        if(!flag){
+            ans.push_back(-1);
+        }
+    }
+    return ans;
+}
 
 int main(){
-
-
-//    vector<int> v{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-//    for(int i = 0; i < v.size(); i++){
-//        cout << v[i] << endl;
-//    }
-//
-//    vector<int> ans(5, 1);
-//    for(int i = 0; i < ans.size(); i++){
-//        cout << ans[i] << endl;
-//    }
-//
-//    string a = "123";
-//    cout << a.length() << a.size();
-//    a.replace(0, 1, "1");
-//    cout << a;
-//
-//    test();
-//    cout << endl;
-//    vector<int> arr{1, 2, 3, 3, 3, 3, 4, 5};
-//    cout << getNumberOfK(arr, 3);
-
-    //test();
-    hello();
+    vector<int> nums1 = {4, 1, 2};
+    vector<int> nums2 = {1, 3, 4, 2};
+    vector<int> a = nextGreaterElement(nums1, nums2);
+    for(int i = 0; i < a.size(); i ++){
+        cout << a[i] << " ";
+    }
     return 0;
-
 }
+
