@@ -13,15 +13,26 @@ int binary_search(int arr[], int l, int r, int target){
         if(arr[mid] >= target) r = mid;
         else l = mid + 1;
     }
+    if(arr[l] != target){
+        return -1;
+    }
     return l;
-//    while(l < r){
-//        int mid = l + r + 1 >> 1;
-//        if(arr[mid] <= target) l = mid;
-//        else r = mid - 1;
-//    }
-//    return l;
 }
 
+int binary_search2(int arr[], int l, int r, int target){
+    while(l < r){
+        int mid = l + r + 1 >> 1;
+        if(arr[mid] <= target) {
+            l = mid;
+        }else{
+            r = mid - 1;
+        }
+    }
+    if(arr[l] != target){
+        return -1;
+    }
+    return l;
+}
 int main(void){
 
 
@@ -33,5 +44,7 @@ int main(void){
     }
 
     int target = 3;
-    cout << binary_search(arr, 0, n - 1, target) << endl;
+    // 如果查询不到值 则返回
+    // cout << binary_search(arr, 0, n - 1, target) << endl;
+    cout << binary_search2(arr, 0, n - 1, target) << endl;
 }
