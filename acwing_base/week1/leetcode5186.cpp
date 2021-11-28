@@ -32,9 +32,10 @@ public:
             cout << v[i] << " ";
         }
         cout << endl;
-        // upper_bound 从数组的begin~end-1 查找第一个大于num的数字
+        // upper_bound 从数组的begin~end-1 查找第一个大于num的数字 不存在则返回end & 返回的是地址
         auto r = upper_bound(v.begin(), v.end(), right);
         auto l = upper_bound(v.begin(), v.end(), left - 1);
+        cout << *r << " " << *l << endl;
         return r - l;
     }
 };
