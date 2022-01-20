@@ -1,2 +1,3 @@
 # algorithm-problem
-学习c++,并用c++刷题
+
+Learn C++ and use C++ to solve algorithmic problems
