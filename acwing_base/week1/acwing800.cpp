@@ -1,3 +1,4 @@
+/*
 //
 // Created by quanhangbo on 2022/1/19 9:59.
 //
@@ -6,12 +7,14 @@
 #include<set>
 using namespace std;
 
+*/
 /**
  *
 4 5 6
 1 2 4 7
 3 4 6 8 9
- */
+ *//*
+
 const int N = 1e5 + 10;
 int a[N], b[N];
 int main(void){
@@ -44,4 +47,24 @@ int main(void){
         }
     }
     return 0;
-}
+}*/
+ #include<iostream>
+ using namespace std;
+
+ const int N = 1e5 + 10;
+ int a[N], b[N];
+ int main(void){
+     int n, m, target;
+     cin >> n >> m >> target;
+     for(int i = 0; i < n; i ++ ){
+         cin >> a[i];
+     }
+     for(int i = 0; i < m; i ++ ){
+         cin >> b[i];
+     }
+     for(int i = 0, j = m - 1; i < n; i ++ ){
+         while(j >= 0 && a[i] + b[j] > target) j --;
+         if(j >= 0 && a[i] + b[j] == target) cout << i << " " << j << endl;
+     }
+     return 0;
+ }
