@@ -5,6 +5,13 @@
 #include<iostream>
 using namespace std;
 
+/**
+ * 位运算：
+ *      求n的第k位数字：n >> k & 1
+ *      返回n的最后一位1：lowbit(n) = n & -n
+ * @param x
+ * @return
+ */
 /*求出最右面的1的位置*/
 int lowbit(int x){
     return x & -x;
