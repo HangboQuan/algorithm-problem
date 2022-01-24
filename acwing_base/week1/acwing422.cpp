@@ -28,14 +28,34 @@ void merge(vector<PII> &segs){
     segs = res;
 }
 
+int longestSubstringWithoutDuplication(string s) {
+    int n = s.size();
+    int a[n];
+    int v = 0;
+    for(int i = 0, j = 0; i < n; i ++ ){
+        a[s[i]] ++;
+        while(a[s[i]] > 1){
+            a[s[j]] --;
+            j ++;
+        }
+        v = max(v, i - j + 1);
+    }
+    return v;
+}
+
 int main(void){
-    int n, m;
+
+    string a;
+    cin >> a;
+    cout << longestSubstringWithoutDuplication(a);
+    /*int n, m;
     cin >> n >> m;
     for(int i = 0; i < m; i ++ ){
         int l, r;
         cin >> l >> r;
         segs.push_back({l, r});
     }
+
 
     merge(segs);
     int total = n + 1;
@@ -44,5 +64,7 @@ int main(void){
         total -= num;
     }
     cout << total << endl;
-    return 0;
+    return 0;*/
 }
+
+
