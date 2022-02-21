@@ -81,6 +81,7 @@ long long minimumRemoval(vector<int>& beans) {
         long long temp = beans[i] * (beans.size() - i);
         res = max(res, beans[i] * temp);
     }
+    
     return sum - res;
 }
 int main(void){
