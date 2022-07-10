@@ -39,6 +39,13 @@ int main(void){
         ne[i] = j;
     }
 
+    for(int i = 1; i <= n; i ++ ){
+        cout << ne[i] << " ";
+    }
+    cout << endl;
+
+
+
 
     // kmp匹配过程
     for(int i = 1, j = 0; i <= m; i ++ ){
