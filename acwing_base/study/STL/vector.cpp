@@ -18,6 +18,20 @@ using namespace std;
  * rend(): returns a reverse iterator pointing to the theoretical element preceding the first element in the vector(considered as reverse end)
  * @return
  */
+
+// 根据第二列值所在行 进行对矩阵升序排列
+bool sortcol(const vector<int>& v1, const vector<int>& v2) {
+    return v1[1] < v2[1];
+}
+
+bool sortcol_descend_order(const vector<int>& v1, vector<int>& v2) {
+    return v1[1] > v2[1];
+}
+
+bool sizecom(const vector<int>& v1, const vector<int>& v2) {
+    return v1.size() < v2.size();
+}
+
 int main() {
     vector<int> a;
     for(int i = 1; i <= 5; i ++ ) {
@@ -306,9 +320,20 @@ int main() {
          cout << endl;
      }
 
-     // 对第一行和第二行进行排序
+     // 对第一行和第二行进行升序排序
      sort(vect2[0].begin(), vect2[0].end());
      sort(vect2[1].begin(), vect2[1].end());
+
+     // 对第一行和第二行进行降序排列
+     /**
+      * 5 3 1
+      * 8 6 4
+      * 7 2 9
+      */
+//     sort(vect2[0].rbegin(), vect2[0].rend());
+//     sort(vect2[1].rbegin(), vect2[1].rend());
+
+
 
      /**
       * 1 3 5
@@ -321,6 +346,60 @@ int main() {
          }
          cout << endl;
      }
+
+     // 2. to sort the entire 2D vector on basis of a particular column 根据特定列对整个二维向量进行排序
+     vector<vector<int>> vect3 = {{3, 5, 1}, {4, 8, 6}, {7, 2, 9}};
+     int m1 = vect3.size();
+     int n1 = vect3[0].size();
+     sort(vect3.begin(), vect3.end(), sortcol);
+     /**
+      * 7 2 9
+      * 3 5 1
+      * 4 8 6
+      */
+     sort(vect3.begin(), vect3.end(), sortcol_descend_order);
+     /**
+      * 4 8 6
+      * 3 5 1
+      * 7 2 9
+      */
+     for(int i = 0; i < m1; i ++ ) {
+         for(int j = 0; j < n1; j ++ ) {
+             cout << vect3[i][j] << " ";
+         }
+         cout << endl;
+     }
+
+     /**
+      * A 2D vector can also have rows with different number of columns. This property is unlike the 2D array
+      * in which all rows have same number of columns.
+      */
+
+     /**
+      * 1 2
+      * 3 4 5
+      * 6
+      */
+     vector<vector<int>> vect4 {{1, 2}, {3, 4, 5}, {6}};
+     for(int i = 0; i < vect4.size(); i ++ ) {
+         for(int j = 0; j < vect4[i].size(); j ++ ) {
+             cout << vect4[i][j] << " ";
+         }
+         cout << endl;
+     }
+     sort(vect4.begin(), vect4.end(), sizecom);
+     /**
+      * 6
+      * 1 2
+      * 3 4 5
+      */
+     for(int i = 0; i < vect4.size(); i ++ ) {
+         for(int j = 0; j < vect4[i].size(); j ++ ) {
+             cout << vect4[i][j] << " ";
+         }
+         cout << endl;
+     }
+
 
 
 
