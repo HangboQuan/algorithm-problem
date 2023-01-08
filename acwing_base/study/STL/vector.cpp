@@ -1,13 +1,20 @@
 //
 // Created by quanhangbo on 2023/1/5 22:22.
 //
+// vector base syntax
 #include<iostream>
 #include<vector>
 #include<algorithm> // for copy() and assign()
 #include<iterator> // for back_inserter
 
-
 using namespace std;
+void func(vector<int> vector);
+void func_reference(vector<int>& vector);
+void func_const_reference(const vector<vector<int>>& vector);
+int func_sum(vector<int>& vec);
+bool sort_by_sec(const pair<int, int>& a, const pair<int, int>& b) {
+    return a.second < b.second;
+}
 // Vectors are the sames as dynamic arrays with the ability to resize itself automatically when an element is inserted
 // or deleted, with their storage being handled automatically by the container. Vector elements are placed in contiguous
 //(连续的) storage so that they can be accessed and traversed using iterator. In vectors, data is inserted at the end.
@@ -18,7 +25,6 @@ using namespace std;
  * rend(): returns a reverse iterator pointing to the theoretical element preceding the first element in the vector(considered as reverse end)
  * @return
  */
-
 // 根据第二列值所在行 进行对矩阵升序排列
 bool sortcol(const vector<int>& v1, const vector<int>& v2) {
     return v1[1] < v2[1];
@@ -122,7 +128,7 @@ int main() {
       * push_back(): it push the elements into a vector from the back 从vector后面添加元素
       * pop_back(): it is used to pop or remove elements from a vector from the back 从vector末尾删除元素，类似于栈
       * insert(): it inserts new elements before the element at the specified position
-      * erase(): it is used to remove elements from a container from the specified position or range
+      * erase(): it is used to remove elements from a container from the specified position or range, delete in range is [)
       * swap(): it is used to swap the contents of one vector with another vector of same type. Sizes may differ
       * clear(): it is used to remove all the elements of the vector container
       */
@@ -400,7 +406,218 @@ int main() {
          cout << endl;
      }
 
+     // vector<vector<int>> vect In a 2D vector, every element is a vector
+     // we can divide this declaration to two parts, which will help us to understand the below concepts.
+     // 1. vect is a 2D vector consisting multiple elements of type vector<int>.
+     // 2. vector<int> is a 1D vector consisting of multiple int data.
+     // So we can use iterator provided by STL instead of i,j variable used in for loop. It can reduce the error which
+     // can happen wrt to i, j operations(i ++, j ++)
+     vector<vector<int>> vect5 {{9}, {8, 7, 6}, {5, 4, 3, 2, 1}};
+
+     for(vector<int> vect1D : vect5) {
+         for(int x : vect1D) {
+             cout << x << " ";
+         }
+         cout << endl;
+     }
+     // 2D vector are often treated as a matrix with "rows" and "columns" inside it. Under the hood they are
+     // actually elements of the 2D vector.
+
+     // Here we tell how many rows the 2D vector is going to have.
+     int row = 5;
+
+     // We define the number of values each row is supposed to have.
+     int columns[] = {5, 3, 4, 2, 1};
+
+     // We now create a vector of vector with size equal to row
+     vector<vector<int>> vec(row);
+
+     for(int i = 0; i < row; i ++ ) {
+         // Declaring the size of the column
+         int col = columns[i];
+
+         vec[i] = vector<int>(col);
+         for(int j = 0; j < col; j ++ ) {
+             vec[i][j] = j + 1;
+         }
+     }
+
+     for(int i = 0; i < row; i ++ ) {
+         for(int j = 0; j < vec[i].size(); j ++ ) {
+             cout << vec[i][j] << " ";
+         }
+         cout << endl;
+     }
+
+     /**
+      * We creat a 2D vector containing "n" elements each having the value "vector<int> (m, 0)".
+      * vector<int> (m, 0) means a vector having m elements each of value "0". Here these elements
+      * are vectors.
+      */
+     int x = 3, y = 4;
+     vector<vector<int>> vec0 (n, vector<int> (m, 1));
+     for(vector<int> vec : vec0) {
+         for(int x : vec) {
+             cout << x << " ";
+         }
+         cout << endl;
+     }
+
+     vector<vector<int>> vec1 (x, vector<int>(y));
+     for(int i = 0; i < vec1.size(); i ++ ) {
+         for(int j = 0; j < vec1[i].size(); j ++ ) {
+             vec1[i][j] = j + i + 1;
+         }
+     }
+
+     for(vector<int> vec : vec1) {
+         for(int x : vec) {
+             cout << x << " ";
+         }
+         cout << endl;
+     }
+
+     vector<int> vec2 = {1, 3, 5, 7, 9, 11, 13, 15, 17, 19};
+     vector<int> :: iterator iterator0 = vec2.begin() + 5;
+     vector<int> :: iterator iterator1 = vec2.begin() + 7;
+     vec2.erase(iterator0, iterator1);
+     for(auto x : vec2) {
+         cout << x << " ";
+     }
+     // 1 3 5 7 9 15 17 19 删除了2个元素 11和13
+     cout << endl;
+
+     /**
+      * Passing Vector to a Function in C++
+      *
+      * When we pass an array to a function, a pointer is actually passed.
+      * However, to pass a vector there are two ways to do so:
+      * 1. Pass By value
+      * 2. Pass By reference
+      */
+
+     // Pass By value
+     // When a vector is passed to a function, a copy of the vector is created. This new copy of the vector is then
+     // used in the function and thus, any changes made to the vector in the function do not affect the original vector
+
+     vector<int> vec3;
+     vec3.push_back(10);
+     vec3.push_back(20);
+     func(vec3);
+     cout << "print in main function : ";
+     for(auto x : vec3) {
+         cout << x << " ";
+     }
+     cout << endl;
+
+     vector<int> vec4;
+     vec4.push_back(100);
+     vec4.push_back(200);
+     func_reference(vec4);
+     for(auto x : vec4) {
+         cout << x << " ";
+     }
+     cout << endl;
+     // if we don't want a function to modify a vector, we can declare a function passing a const reference also.
+
+     int x1 = 3, y1 = 4;
+     vector<vector<int>> vec5(x1, vector<int>(y1));
+     for(int i = 0; i < vec5.size(); i ++ ) {
+         for(int j = 0; j < vec5[i].size(); j ++ ) {
+             vec5[i][j] = i + j + 1;
+         }
+     }
+     for(vector<int> vec : vec5) {
+         for(int x : vec) {
+             cout << x << " ";
+         }
+         cout << endl;
+     }
+     func_const_reference(vec5);
+     vector<int> vec6 {91, 47, 23, 11, 61, 57, 43, 31};
+     // 364
+     cout << func_sum(vec6) << endl;
+
+     // Why is empty() prefered over size()?
+     /**
+      * 1. empty() function does not use any comparsion operators, thus it is more convenient to use
+      * 2. empty() function is implemented in constant time, regardless of container type, whereas some implementations
+      * of size() function require O(n) time complexity such as list::size()
+      */
+
+     vector<string> vec7 = {"Google", "MicroSoft", "Apple"};
+     vec7.clear();
+     cout << "vec7 size(): " << vec7.size() << endl;
+     // Google MicroSoft Apple 奇怪，size() = 0了为什么还能打印?
+//     for(int i = 0; i <= vec7.size() - 1; i ++ ) {
+//         cout << vec7[i] << " ";
+//     }
+//     cout << endl;
+
+     /**
+      * Difference between front(), back() and begin(), end() function
+      * begin() and end() function return an iterator(like a pointer, but what difference between pointer and reference?)
+      * initialized to the first or the last element of the container that can be be used to iterate through the collection,
+      * front() and back() function just return a reference to the first or the last element of the container
+      */
+
+     /**
+      * Vector of Pair
+      * A pair is a container which stores two values mapped to each other, and a vector containing multiple number
+      * of such pair is called a vector of pairs.
+      */
+     vector<pair<int, int>> vec8;
+     int arr[] = {10, 20, 5, 40}; // int 占4个字节
+     int arr1[] = {30, 60, 1, 19};
+     cout << sizeof(arr) << endl; // 16
+     int n0 = sizeof(arr) / sizeof(arr1[0]);
+     cout << "no sizeof : " << n0 << endl; // 4
+
+     for(int i = 0; i < n0; i ++ ) {
+         vec8.push_back(make_pair(arr[i], arr1[i]));
+     }
+     sort(vec8.begin(), vec8.end());
+     for(int i = 0; i < n0; i ++ ){
+         cout << vec8[i].first << " " << vec8[i].second << endl;
+     }
+
+     //根据pair的顺序排序
+     sort(vec8.begin(), vec8.end(), sort_by_sec);
+     for(pair<int, int> p : vec8) {
+         cout << p.first << " " << p.second << endl;
+     }
+
+}
 
 
+// The vec is passed by constant reference and cannot be changed by this function.
+void func_const_reference(const vector<vector<int>>& vec) {
+    // uncommenting this line would below error
+    // vec[1][0] = 100;
+}
 
+// passing by reference saves a lot of time and makes the implementation of the code faster.
+void func_reference(vector<int>& vec) {
+    vec.push_back(300);
+}
+
+// The vect here is a copy of vect in main(), passing by value keeps the original vector unchanged and doesn't modify
+// the original values of the vector.
+// the style of passing might also take a lot of time in cases of large vectors. so it is a good idea to pass by reference
+void func(vector<int> vec) {
+    vec.push_back(30);
+    cout << "print in function : ";
+    for(auto x : vec) {
+        cout << x << " ";
+    }
+    cout << endl;
+}
+
+int func_sum(vector<int>& vec) {
+    int sum = 0;
+    while(!vec.empty()) {
+        sum += vec.back();
+        vec.pop_back();
+    }
+    return sum;
 }
