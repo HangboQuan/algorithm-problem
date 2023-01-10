@@ -14,6 +14,7 @@ using namespace std;
  * List是非连续的存储结构，因此其插入和删除元素的花销更少
  * @return
  */
+bool even(const int& value);
 int main() {
     // empty(): this function is used to check if the list container is empty or not
     // size(): this function is used to the size of the list container or the number of elements in the list container
@@ -146,4 +147,125 @@ int main() {
         cout << x << " ";
     }
     cout << endl;
+
+    /**
+     * forward_list in STL is a singly linked list implementation. // forward是用单向链表实现的
+     * forward_list :: before_begin(): The function returns an iterator that points to the position before the first
+     * element of the forward_list.
+     */
+
+    forward_list<int> f1 = {20, 30, 40, 50};
+    auto it = f1.before_begin();
+    // inserting element before the first element
+    f1.insert_after(it, 10);
+
+    // loop to print the elements of the list
+    // 10 20 30 40 50
+    for(auto it = f1.begin(); it != f1.end(); ++ it) {
+        cout << *it << " ";
+    }
+    cout << endl;
+
+    forward_list<string> f2 = {"dennis", "ritchie", "huge", "peter", "tom"};
+    // forward_list :: cbefore_begin(): The function returns an constant iterator that points to the position before the first element of the forward_list
+    auto it2 = f2.cbefore_begin();
+    f2.insert_after(it2, "dollar");
+    // dollar dennis ritchie huge peter tom
+    for(auto it = f2.begin(); it != f2.end(); ++ it) {
+        cout << *it << " ";
+    }
+    cout << endl;
+    // forward_list :: unique(): like normal list, unique operation on forward list
+
+    // forward_list :: splice_after(): the function transfers the elements in the range of first + 1 to last from
+    // a given forward_list. The elements are inserted after the element pointed to by position in the param
+    // 传递从开始元素的下一个到元素末尾到被给定的forward_list
+    // forward_list.name.splice_after(position iterator, forward_list_name, first iterator, last iterator)
+
+    forward_list<int> forward_list3 = {11, 22, 33, 44};
+    forward_list<int> forward_list4 = {4, 9};
+
+    // 4 params
+    // position: specifies the position in the forward_list after which the new elements are to be inserted
+    // forward_list_name: specifies the list from which elements are to be inserted
+    // first: specifies the iterator after which insertion is to be done
+    // last: specifies the iterator till which insertion is to be done
+    forward_list4.splice_after(forward_list4.begin(), forward_list3, forward_list3.begin(), forward_list3.end());
+    // 4 22 33 44 9
+    for(auto it = forward_list4.begin(); it != forward_list4.end(); ++ it) {
+        cout << *it << " ";
+    }
+    cout << endl;
+
+    forward_list<int> forward_list5 = {11, 22, 33, 44};
+    forward_list<int> forward_list6 = {3, 10};
+    forward_list6.splice_after(forward_list6.begin(), forward_list5, forward_list5.before_begin(), forward_list5.end());
+
+    // 3 11 22 33 44 10
+    for(auto it = forward_list6.begin(); it != forward_list6.end(); it ++ ) {
+        cout << *it << " ";
+    }
+    cout << endl;
+
+    // list :: remove(): the function is used to remove all the values from the list that correspond(对应) to the value given as param to the function
+    // param: the value of the element to be removed is passed as the param
+    list<int> list8{1, 2, 3, 3, 3, 3, 4};
+    list8.remove(3);
+    list8.remove(2);
+    // do not throw exception
+    list8.remove(10);
+    // 1 4
+    for(auto x : list8) {
+        cout << x << " ";
+    }
+    cout << endl;
+
+    // list :: remove_if(): the function is used to remove all the values from the list that correspond true to the
+    // predicate or condition given as parameter to the function
+    list<int> list9{1, 2, 2, 2, 3, 3, 3, 4, 4, 5};
+    list9.remove_if(even);
+    for(auto x : list9) {
+        cout << x << " ";
+    }
+    cout << endl;
+
+    /**
+     * emplace(position, value) : This function is used to insert an element at the specified position.
+     * emplace_back(value) : This function adds value at end of list. it is different from push_back() by the fact
+     * that it directly creates elements at position, whereas push_back() first makes a temporary copy and copies from there.
+     * thus emplace_back(value) is faster in implementation than push_back() in most situations.
+     * emplace_front(value) : This function adds value at begining of the List.
+     */
+
+    list<int> list10 ;
+    list<int> :: iterator it10 = list10.begin();
+    for(int i = 1; i <= 5; i ++ ) {
+        list10.emplace_back(i);
+    }
+    // 1 2 3 4 5
+    for(int& x : list10) {
+        cout << x << " ";
+    }
+    cout << endl;
+
+    for(int i = 1; i <= 5; i ++ ) {
+        list10.emplace_front(i * 2);
+    }
+    // 10 8 6 4 2 1 2 3 4 5
+    for(int& x : list10) {
+        cout << x << " ";
+    }
+    cout << endl;
+    // using advance() to advance iterator position 使用advance()来推进迭代器的位置
+    advance(it10, 2);
+    // 10 200 8 6 4 2 1 2 3 4 5
+    list10.emplace(it10, 200);
+    for(int& x : list10) {
+        cout << x << " ";
+    }
+    cout << endl;
+
+}
+bool even(const int& value) {
+    return value % 2 == 0;
 }
