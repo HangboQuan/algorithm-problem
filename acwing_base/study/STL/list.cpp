@@ -265,6 +265,18 @@ int main() {
     }
     cout << endl;
 
+    // merge(list2): This function is used to merge list2 with list1. if both the lists are in sorted order, then the
+    // resulting list is also sorted.
+
+    list<int> list11 = {1, 7, 5, 8};
+    list<int> list12 = {1, 2, 3, 4, 5, 6, 10};
+    list11.merge(list12);
+    // 1 1 2 3 4 5 6 7 5 8 10
+    for(int& x : list11) {
+        cout << x << " ";
+    }
+    cout << endl;
+
 }
 bool even(const int& value) {
     return value % 2 == 0;
