@@ -277,6 +277,15 @@ int main() {
     }
     cout << endl;
 
+    // splice(position, list2): this function is used to transfer elements from one list into another
+    list<int> list13 = {-1, -2, 0};
+    list<int> list14 = {99, 100, 101};
+    list<int> :: iterator its = list13.begin();
+    list13.splice(its, list14);
+    for(auto x : list13) {
+        cout << x << " ";
+    }
+    cout << endl;
 }
 bool even(const int& value) {
     return value % 2 == 0;
