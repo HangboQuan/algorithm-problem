@@ -207,6 +207,32 @@ int main() {
     }
     cout << endl;
 
+    forward_list<int> forward_list7;
+    forward_list<int> forward_list8;
+
+    forward_list<int> forward_list9;
+
+    // Assigning values using assign() 赋值
+    forward_list7.assign({1, 2, 3});
+    for(auto x : forward_list7) {
+        cout << x << " ";
+    }
+    cout << endl;
+
+    forward_list8.assign(5, 10);
+    for(int& x : forward_list8) {
+        cout << x << " ";
+    }
+    cout << endl;
+
+    forward_list9.assign(forward_list7.begin(), forward_list7.end());
+    for(auto x : forward_list9) {
+        cout << x << " ";
+    }
+    cout << endl;
+
+
+
     // list :: remove(): the function is used to remove all the values from the list that correspond(对应) to the value given as param to the function
     // param: the value of the element to be removed is passed as the param
     list<int> list8{1, 2, 3, 3, 3, 3, 4};
