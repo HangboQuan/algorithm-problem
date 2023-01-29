@@ -28,4 +28,18 @@ int main(void) {
     // returns a reference to the first element of the queue
     cout << gquiz.front() << endl;
     cout << gquiz.back() << endl;
+
+    // emplace(): this function is used to insert a new element into the queue container, the new element is added to the end of the queue
+    queue<int> myqueue;
+    myqueue.emplace(1);
+    myqueue.emplace(2);
+    myqueue.emplace(3);
+    myqueue.emplace(4);
+    myqueue.emplace(5);
+
+    while(!myqueue.empty()) {
+        cout << myqueue.front() << " ";
+        myqueue.pop();
+    }
+
 }
