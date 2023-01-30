@@ -15,6 +15,12 @@ void showq(queue<int> gq) {
     }
     cout << '\n';
 }
+
+/**
+ * Queues are a type of container adaptors that operate in a first in first out type of arrangement. Elements are inserted
+ * at the back and deleted from the front. 
+ * @return
+ */
 int main(void) {
     queue<int> gquiz;
     // adds the element at the end of the queue
