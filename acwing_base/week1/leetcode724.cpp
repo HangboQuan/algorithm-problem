@@ -45,18 +45,31 @@ int pivotIndex(vector<int>& nums) {
         return -1;
     }
  */
-    vector<int> sum(nums.size() + 1);
-    for (int i = 0; i < nums.size(); i ++ ) {
-        sum[i + 1] = nums[i] + sum[i];
+//    vector<int> sum(nums.size() + 1);
+//    for (int i = 0; i < nums.size(); i ++ ) {
+//        sum[i + 1] = nums[i] + sum[i];
+//    }
+//
+//    for (int i = 0; i < nums.size(); i ++ ) {
+//        if (sum[i] == sum[nums.size()] - sum[i + 1]) {
+//            return i;
+//        }
+//    }
+//    return -1;
+
+    int sum = 0;
+    int sumLeft = 0;
+    for (int i = 0; i < size(nums); i ++ ) {
+        sum += nums[i];
     }
 
-    for (int i = 0; i < nums.size(); i ++ ) {
-        if (sum[i] == sum[nums.size()] - sum[i + 1]) {
+    for (int i = 0; i < size(nums); i ++ ) {
+        if (sumLeft * 2 + nums[i] == sum) {
             return i;
         }
+        sumLeft += nums[i];
     }
     return -1;
-
 
 }
 
