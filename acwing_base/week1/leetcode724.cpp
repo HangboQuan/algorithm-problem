@@ -73,6 +73,8 @@ int pivotIndex(vector<int>& nums) {
 
 }
 
+
+
 int main(void) {
     vector<int> ans = {1, 7, 3, 6, 5, 6};
     cout << pivotIndex(ans);
