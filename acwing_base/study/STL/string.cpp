@@ -26,6 +26,15 @@ int main(void) {
     str.append(" world");
     cout << str << endl;
 
+    string str1("123");
+    // convert string to integer
+    int value = stoi(str1);
+    cout << value << endl;
+
+    string str2("2147483647");
+    long value1 = stol(str2);
+    cout << value1 << endl;
+
 
 
 }
