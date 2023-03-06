@@ -12,10 +12,10 @@ using namespace std;
 stack<int> insertSort(stack<int> r) {
     stack<int> s;
     int t = r.top();
-    cout << t << endl;
+    r.pop();
     while(!r.empty()) {
         if(s.empty() || s.top() <= t) {
-
+            cout << t << endl;
             s.push(t);
             t = r.top();
             r.pop();
@@ -24,18 +24,25 @@ stack<int> insertSort(stack<int> r) {
             r.push(s.top());
             s.pop();
         }
+
     }
+    s.push(t);
+
+
+
+//    while (!s.empty()) {
+//        cout << s.top() << endl;
+//        s.pop();
+//    }
     return s;
 }
 
 int main(void) {
     stack<int> s;
-    s.push(1);
+    s.push(5);
     s.push(2);
-    s.push(4);
+    s.push(8);
     s.push(3);
-    s.push(9);
-    s.push(6);
 
     stack<int> su = insertSort(s);
     while(!su.empty()) {
