@@ -13,7 +13,13 @@ const int N = 110;
 int g[N][N];
 int d[N][N];
 
+int ans = 110;
+
 typedef pair<int, int> PII;
+
+//int dx[4] = {-1, 0, 1, 0};
+//int dy[4] = {0, 1, 0, -1};
+int matrix[4][2] = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 int n, m;
 
 int bfs() {
@@ -41,6 +47,26 @@ int bfs() {
 
 }
 
+void dfs(int x, int y, int step) {
+    if (x == n - 1 && y == m - 1) {
+        if (step < ans) {
+            ans = step;
+        }
+        return ;
+    }
+
+    for (int i = 0; i < 4; i ++ ) {
+        int tx = x + matrix[i][0];
+        int ty = y + matrix[i][1];
+
+        if (tx >= 0 && tx < n && ty >= 0 && ty < m && g[tx][ty] == 0 && d[tx][ty] == -1) {
+            d[tx][ty] = 1;
+            dfs(tx, ty, step + 1);
+            d[tx][ty] = -1;
+        }
+    }
+}
+
 int main(void) {
     scanf("%d%d", &n, &m);
     for (int i = 0; i < n; i ++ ) {
@@ -48,7 +74,11 @@ int main(void) {
             scanf("%d", &g[i][j]);
         }
     }
-
+    memset(d, -1, sizeof(d));
     cout << bfs() << endl;
+    // 使用dfs 的话 无法通过 会报TLE
+//    dfs(0, 0, 0);
+    cout << ans << endl;
     return 0;
 }
+
